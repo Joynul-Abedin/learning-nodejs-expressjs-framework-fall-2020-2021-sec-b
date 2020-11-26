@@ -1,0 +1,24 @@
+{
+  "name": "ghurtejai",
+  "version": "1.0.0",
+  "description": "Traveling Website using NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app"
+  },
+  "author": "Saif Hassan and Khalid Hasan",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.4",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "mysql": "^2.16.0",
+    "update": "^0.7.4",
+    "upgrade": "^1.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
+  }
+}
