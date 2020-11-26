@@ -18,3 +18,8 @@ Technologies Used
 Framework Used
 1. Bootstrap 
 2. AdminLTE
+
+
+#Preview
+
+[![SB Admin 2 Preview](https://assets.startbootstrap.com/img/screenshots/themes/sb-admin-2.png)]
