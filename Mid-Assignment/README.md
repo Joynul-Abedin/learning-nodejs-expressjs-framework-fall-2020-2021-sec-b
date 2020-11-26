@@ -1,4 +1,4 @@
-# GhurteJai - NodeJS App for Travel Booking/Reservation
+# Travel Guide - NodeJS App for Travel Booking/Reservation
 
 Travel Agency Website for NodeJS Course at AIUB
 
