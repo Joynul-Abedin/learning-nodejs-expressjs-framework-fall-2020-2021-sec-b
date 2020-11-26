@@ -18,8 +18,3 @@ Technologies Used
 Framework Used
 1. Bootstrap 
 2. AdminLTE
-
-
-##Preview
-
-![Preview](https://photos.app.goo.gl/yt5pmCSGkFWUH5eVA)
