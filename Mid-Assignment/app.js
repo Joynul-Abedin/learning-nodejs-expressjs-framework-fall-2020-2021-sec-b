@@ -30,6 +30,16 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use('/login', login);
 app.use('/home', home);
+app.use('/', main);
+app.use('/home', home);
+app.use('/index', index);
+app.use('/logout', logout);
+app.use('/admindashboard', adminDashboard);
+app.use('/userdashboard', use
+app.use('/assets',express.static('assets'))
+app.use('/userdashboard/assets/',express.static'assets'));
+app.use('/admindashboard/assets/',express.static
+
 
 
 //ROUTES
