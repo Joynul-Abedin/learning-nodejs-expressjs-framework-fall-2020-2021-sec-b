@@ -12,8 +12,8 @@ var main			= require('./controllers/main');
 var logout			= require('./controllers/logout');
 var anh             = require('./controllers/adminAddNewHotel');
 var adminAddNewRoom = require('./controllers/adminAddNewRoom');
-var viewhotels      = require('./controllers/viewHotels');
-var viewroom        = require('./controllers/viewroom');
+//var viewhotels      = require('./controllers/viewHotels');
+//var viewroom        = require('./controllers/viewroom');
 var hotelEnquiry    = require('./controllers/hotelEnquiry');
 var adminAllUsers   = require('./controllers/adminAllUsers');
 var register        = require('./controllers/register');
@@ -37,8 +37,8 @@ app.use('/logout', logout);
 app.use('/admindashboard', adminDashboard);
 app.use('/userdashboard', userDashboard);
 app.use('/addnewhotel', anh);
-app.use('/viewhotels', viewhotels);
-app.use('/viewroom', viewroom);
+//app.use('/viewhotels', viewhotels);
+//app.use('/viewroom', viewroom);
 app.use('/addroom', adminAddNewRoom);
 app.use('/register', register);
 app.use('/enquiry', hotelEnquiry);
@@ -52,16 +52,6 @@ app.use('/viewhotels',express.static('assets'));
 app.use('/viewhotels/edit/:id',express.static('assets'));
 app.use('/viewroom/edit/:id',express.static('assets'));
 app.use('/allusers/edit/:id',express.static('assets'));
-
-
-
-//ROUTES
-
-// app.get('/', function(req, res) {
-// 	res.redirect('/home');
-
-// });
-
 
 
 //SERVER STARTUP
