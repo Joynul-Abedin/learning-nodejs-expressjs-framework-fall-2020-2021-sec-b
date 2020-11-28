@@ -5,6 +5,10 @@ var router = express.Router();
 
 
 router.get('/', (req, res)=>{
+
+	if(req.session.name=='khalid'){
+		res.redirect('/admindashboard');
+	}
 	res.render('login/index');
 });
 
@@ -12,20 +16,27 @@ router.get('/', (req, res)=>{
 
  router.post('/', (req, res)=>{
 
-	user = {
-		'userName'	: req.body.uname,
-		'password' 	: req.body.pwd
+	if(req.body.uname=='khalid' && req.body.pwd=="123456"){
+		 req.session.name = req.body.uname; //CreateSessionVariable
+			  res.redirect('/admindashboard');
 	}
-	userModel.validate(user, function(result){
-		if(result.length > 0){
-			req.session.name = req.body.uname;
-			res.cookie('user', req.body.user);
-			res.redirect('/usercheck');
-		}else{
-			res.send("User Login Unsuccessful <a href='/login'>Go Back</a>");
-		}
-	});
+	else{
 
+		var user = {
+			uname : req.body.uname,
+			password : req.body.pwd
+		};
+
+		userModel.validate(user, function(result){
+			if(result.length > 0){
+				req.session.name = req.body.uname;
+				res.redirect('/userdashboard');
+			}else{
+				res.send("User Login Unsuccessful <a href='/login'>Go Back</a>");
+			}
+		});
+
+	}
 });
 
 

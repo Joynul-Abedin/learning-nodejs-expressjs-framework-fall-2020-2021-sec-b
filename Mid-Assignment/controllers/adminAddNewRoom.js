@@ -53,7 +53,7 @@ router.post('/', (req, res)=>{
 
 
 router.get('/', (req, res)=>{
-    if(req.session.name =='shokal'){
+    if(req.session.name =='khalid'){
     
     userModel.getHotelOwner(function(results) {
 

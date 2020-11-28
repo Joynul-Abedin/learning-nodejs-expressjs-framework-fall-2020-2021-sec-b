@@ -48,7 +48,7 @@ router.post('/', (req, res)=>{
         hotel_desc : req.body.hotel_desc,
         hotel_owner : req.body.hotel_owner,
         image : 'dist/img/hotel-1-1.jpg',
-        addedBy : 'shokal',
+        addedBy : 'Khalid',
         message : 'Hotel Added',
         list : ''
     };

@@ -55,5 +55,14 @@ app.use('/allusers/edit/:id',express.static('assets'));
 
 
 
+//ROUTES
+
+// app.get('/', function(req, res) {
+// 	res.redirect('/home');
+
+// });
+
+
+
 //SERVER STARTUP
 app.listen(port, ()=>console.log('server started at '+port+"..."));

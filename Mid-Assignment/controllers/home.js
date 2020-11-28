@@ -13,7 +13,7 @@ router.get('*', function(req, res, next){
 router.get('/', (req, res)=>{
 		var user = {
 			//name: req.session.name
-			name: 'shokal'
+			name: 'Khalid'
 		};
 		res.render('index', user);
 });	

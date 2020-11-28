@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Nov 27, 2020 at 07:05 PM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.4.10
+-- Host: 127.0.0.1:3306
+-- Generation Time: Mar 07, 2019 at 05:16 PM
+-- Server version: 5.7.23
+-- PHP Version: 7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -27,13 +28,15 @@ SET time_zone = "+00:00";
 -- Table structure for table `categories`
 --
 
-CREATE TABLE `categories` (
-  `cat_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `categories`;
+CREATE TABLE IF NOT EXISTS `categories` (
+  `cat_id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) DEFAULT NULL,
   `deletedAt` timestamp NULL DEFAULT NULL,
   `last_modified` varchar(50) NOT NULL,
-  `deletedBy` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf32;
+  `deletedBy` varchar(50) NOT NULL,
+  PRIMARY KEY (`cat_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf32;
 
 --
 -- Dumping data for table `categories`
@@ -52,19 +55,22 @@ INSERT INTO `categories` (`cat_id`, `title`, `deletedAt`, `last_modified`, `dele
 -- Table structure for table `hotels`
 --
 
-CREATE TABLE `hotels` (
-  `hotel_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `hotels`;
+CREATE TABLE IF NOT EXISTS `hotels` (
+  `hotel_id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) CHARACTER SET utf32 DEFAULT NULL,
   `addedBy` varchar(50) DEFAULT NULL,
   `location` varchar(50) DEFAULT NULL,
   `image` varchar(200) DEFAULT NULL,
-  `hotel_desc` text DEFAULT NULL,
+  `hotel_desc` text,
   `owner` varchar(50) DEFAULT NULL,
-  `addedOn` timestamp NOT NULL DEFAULT current_timestamp(),
+  `addedOn` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deletedAt` timestamp NULL DEFAULT NULL,
   `last_modified` varchar(50) NOT NULL,
-  `deletedBy` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `deletedBy` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`hotel_id`),
+  KEY `hotels_users_username_fk` (`addedBy`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `hotels`
@@ -83,8 +89,9 @@ INSERT INTO `hotels` (`hotel_id`, `title`, `addedBy`, `location`, `image`, `hote
 -- Table structure for table `hotel_enquiry`
 --
 
-CREATE TABLE `hotel_enquiry` (
-  `enquiry_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `hotel_enquiry`;
+CREATE TABLE IF NOT EXISTS `hotel_enquiry` (
+  `enquiry_id` int(11) NOT NULL AUTO_INCREMENT,
   `hotel_id` int(11) DEFAULT NULL,
   `room_type_id` int(11) DEFAULT NULL,
   `name` varchar(50) DEFAULT NULL,
@@ -95,11 +102,14 @@ CREATE TABLE `hotel_enquiry` (
   `total_room` int(11) DEFAULT NULL,
   `child` int(11) DEFAULT NULL,
   `adult` int(11) DEFAULT NULL,
-  `message` text DEFAULT NULL,
+  `message` text,
   `count` int(11) DEFAULT NULL,
   `addedBy` varchar(50) DEFAULT NULL,
-  `deletedAt` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf32;
+  `deletedAt` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`enquiry_id`),
+  KEY `hotel-enquiry_hotels_hotel_id_fk` (`hotel_id`),
+  KEY `hotel-enquiry_room_type_room_type_id_fk` (`room_type_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf32;
 
 --
 -- Dumping data for table `hotel_enquiry`
@@ -122,18 +132,21 @@ INSERT INTO `hotel_enquiry` (`enquiry_id`, `hotel_id`, `room_type_id`, `name`, `
 -- Table structure for table `posts`
 --
 
-CREATE TABLE `posts` (
-  `post_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `posts`;
+CREATE TABLE IF NOT EXISTS `posts` (
+  `post_id` int(11) NOT NULL AUTO_INCREMENT,
   `cat_id` int(11) DEFAULT NULL,
-  `title` text DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `addedOn` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `title` text,
+  `description` text,
+  `addedOn` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `addedBy` varchar(50) DEFAULT NULL,
   `deletedAt` timestamp NULL DEFAULT NULL,
   `image` varchar(200) DEFAULT NULL,
   `last_modified` varchar(50) NOT NULL,
-  `deletedBy` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf32;
+  `deletedBy` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`post_id`),
+  KEY `posts_categories_cat_id_fk` (`cat_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf32;
 
 --
 -- Dumping data for table `posts`
@@ -153,10 +166,12 @@ INSERT INTO `posts` (`post_id`, `cat_id`, `title`, `description`, `addedOn`, `ad
 -- Table structure for table `reservation_check`
 --
 
-CREATE TABLE `reservation_check` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `reservation_check`;
+CREATE TABLE IF NOT EXISTS `reservation_check` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `checkout_date` date NOT NULL,
-  `quantity` int(11) NOT NULL
+  `quantity` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -165,19 +180,22 @@ CREATE TABLE `reservation_check` (
 -- Table structure for table `room_type`
 --
 
-CREATE TABLE `room_type` (
-  `room_type_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `room_type`;
+CREATE TABLE IF NOT EXISTS `room_type` (
+  `room_type_id` int(11) NOT NULL AUTO_INCREMENT,
   `hotel_id` int(11) DEFAULT NULL,
   `room_name` varchar(50) DEFAULT NULL,
-  `room_desc` text DEFAULT NULL,
+  `room_desc` text,
   `price` int(11) DEFAULT NULL,
   `image` varchar(200) DEFAULT NULL,
   `capacity` int(11) DEFAULT NULL,
   `available` int(11) DEFAULT NULL,
   `deletedAt` timestamp NULL DEFAULT NULL,
   `last_modified` varchar(50) NOT NULL,
-  `deletedBy` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `deletedBy` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`room_type_id`),
+  KEY `room_type_hotels_hotel_id_fk` (`hotel_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `room_type`
@@ -200,23 +218,26 @@ INSERT INTO `room_type` (`room_type_id`, `hotel_id`, `room_name`, `room_desc`, `
 -- Table structure for table `tours`
 --
 
-CREATE TABLE `tours` (
-  `tour_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tours`;
+CREATE TABLE IF NOT EXISTS `tours` (
+  `tour_id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
   `days` int(11) DEFAULT NULL,
   `location` varchar(50) DEFAULT NULL,
-  `description` text DEFAULT NULL,
+  `description` text,
   `image` varchar(200) DEFAULT NULL,
   `capacity` int(11) DEFAULT NULL,
   `available` int(11) DEFAULT NULL,
   `owner` varchar(50) DEFAULT NULL,
-  `addedOn` timestamp NOT NULL DEFAULT current_timestamp(),
+  `addedOn` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `addedBy` varchar(50) DEFAULT NULL,
   `deletedAt` timestamp NULL DEFAULT NULL,
   `last_modified` varchar(50) NOT NULL,
-  `deletedBy` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `deletedBy` varchar(50) NOT NULL,
+  PRIMARY KEY (`tour_id`),
+  KEY `tours_users_username_fk` (`addedBy`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tours`
@@ -241,8 +262,9 @@ INSERT INTO `tours` (`tour_id`, `title`, `price`, `days`, `location`, `descripti
 -- Table structure for table `tour_enquiry`
 --
 
-CREATE TABLE `tour_enquiry` (
-  `enquiry_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tour_enquiry`;
+CREATE TABLE IF NOT EXISTS `tour_enquiry` (
+  `enquiry_id` int(11) NOT NULL AUTO_INCREMENT,
   `tour_id` int(11) DEFAULT NULL,
   `name` varchar(50) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
@@ -250,10 +272,12 @@ CREATE TABLE `tour_enquiry` (
   `days` int(11) DEFAULT NULL,
   `child` int(11) DEFAULT NULL,
   `adult` int(11) DEFAULT NULL,
-  `message` text DEFAULT NULL,
+  `message` text,
   `addedBy` varchar(50) DEFAULT NULL,
-  `deletedAt` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf32;
+  `deletedAt` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`enquiry_id`),
+  KEY `tour_enquiry_tours_tour_id_fk` (`tour_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf32;
 
 --
 -- Dumping data for table `tour_enquiry`
@@ -280,7 +304,8 @@ INSERT INTO `tour_enquiry` (`enquiry_id`, `tour_id`, `name`, `email`, `phone`, `
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
   `username` varchar(50) NOT NULL,
   `name` varchar(50) DEFAULT NULL,
   `password` varchar(50) DEFAULT NULL,
@@ -289,9 +314,10 @@ CREATE TABLE `users` (
   `user_role` varchar(50) DEFAULT NULL,
   `image` varchar(200) DEFAULT NULL,
   `deletedAt` timestamp NULL DEFAULT NULL,
-  `addedOn` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `addedOn` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `last_modified` varchar(50) NOT NULL,
-  `deletedBy` varchar(50) NOT NULL
+  `deletedBy` varchar(50) NOT NULL,
+  PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -300,129 +326,12 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`username`, `name`, `password`, `email`, `phone`, `user_role`, `image`, `deletedAt`, `addedOn`, `last_modified`, `deletedBy`) VALUES
 ('', '', '', '', '', 'Subscriber', 'dist/img/a36ac46cab133974a28f6662068d8649', NULL, '2018-09-02 07:53:31', '', ''),
-('admin', 'Joynul Abedin', '1234', 'admin@gmail.com', '01944615494', 'Admin', 'dist/img/shokal.jpg', NULL, '2020-11-26 15:35:14', 'shokal', ''),
 ('Hasan', 'Hasan Ibne', '123456', 'hasan@gmail.com', '01742712141', 'Subscriber', 'dist/img/khalid.jpg', NULL, '2018-08-28 10:36:14', 'khalid', ''),
+('ishrak', 'Ishrak Mohammad', '123456', 'ishrak@gmail.com', '0185263548', 'Owner', 'dist/img/ishrak.jpg', NULL, '2018-08-28 10:34:25', 'Hasan', ''),
+('khalid', 'Khalid Hasan', '123456', 'khalid@gmail.com', '01820570771', 'Admin', 'dist/img/khalid.jpg', NULL, '2018-08-28 10:40:37', 'khalid', ''),
 ('nashrif', 'Nashrif Mahmud', '123456', 'nashrif@gmail.com', '01742712141', 'Owner', 'dist/img/nashrif.jpg', NULL, '2018-08-25 20:32:13', '', ''),
 ('salam', 'salam', '123456', 'salam@gmail.com', '01820570771', 'Subscriber', 'dist/img/94e240c668024a26980b4d3ef0329dd6VISA-PIC.jpg', NULL, '2018-09-02 07:53:23', '', ''),
-('shokal', 'Joynul Abedin', '123456', 'shokal@gmail.com', '01944615494', 'Owner', 'dist/img/ishrak.jpg', NULL, '2020-11-26 15:35:16', 'Hasan', ''),
 ('tasnim', 'Tasnim Sadat', '123456', 'tasnim@gmail.com', '01856541236', 'Subscriber', 'dist/img/tasnim.jpg', NULL, '2018-08-28 10:21:33', '', '');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `categories`
---
-ALTER TABLE `categories`
-  ADD PRIMARY KEY (`cat_id`);
-
---
--- Indexes for table `hotels`
---
-ALTER TABLE `hotels`
-  ADD PRIMARY KEY (`hotel_id`),
-  ADD KEY `hotels_users_username_fk` (`addedBy`);
-
---
--- Indexes for table `hotel_enquiry`
---
-ALTER TABLE `hotel_enquiry`
-  ADD PRIMARY KEY (`enquiry_id`),
-  ADD KEY `hotel-enquiry_hotels_hotel_id_fk` (`hotel_id`),
-  ADD KEY `hotel-enquiry_room_type_room_type_id_fk` (`room_type_id`);
-
---
--- Indexes for table `posts`
---
-ALTER TABLE `posts`
-  ADD PRIMARY KEY (`post_id`),
-  ADD KEY `posts_categories_cat_id_fk` (`cat_id`);
-
---
--- Indexes for table `reservation_check`
---
-ALTER TABLE `reservation_check`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `room_type`
---
-ALTER TABLE `room_type`
-  ADD PRIMARY KEY (`room_type_id`),
-  ADD KEY `room_type_hotels_hotel_id_fk` (`hotel_id`);
-
---
--- Indexes for table `tours`
---
-ALTER TABLE `tours`
-  ADD PRIMARY KEY (`tour_id`),
-  ADD KEY `tours_users_username_fk` (`addedBy`);
-
---
--- Indexes for table `tour_enquiry`
---
-ALTER TABLE `tour_enquiry`
-  ADD PRIMARY KEY (`enquiry_id`),
-  ADD KEY `tour_enquiry_tours_tour_id_fk` (`tour_id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`username`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `categories`
---
-ALTER TABLE `categories`
-  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `hotels`
---
-ALTER TABLE `hotels`
-  MODIFY `hotel_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `hotel_enquiry`
---
-ALTER TABLE `hotel_enquiry`
-  MODIFY `enquiry_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
-
---
--- AUTO_INCREMENT for table `posts`
---
-ALTER TABLE `posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `reservation_check`
---
-ALTER TABLE `reservation_check`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `room_type`
---
-ALTER TABLE `room_type`
-  MODIFY `room_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
-
---
--- AUTO_INCREMENT for table `tours`
---
-ALTER TABLE `tours`
-  MODIFY `tour_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT for table `tour_enquiry`
---
-ALTER TABLE `tour_enquiry`
-  MODIFY `enquiry_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables

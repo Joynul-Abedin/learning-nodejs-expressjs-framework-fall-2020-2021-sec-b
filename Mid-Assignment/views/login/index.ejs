@@ -52,10 +52,14 @@
 	<!-- Modernizr JS -->
 	<script src="assets/js/modernizr-2.6.2.min.js"></script>
 	<!-- FOR IE9 below -->
-
+	<!--[if lt IE 9]>
+	<script src="assets/js/respond.min.js"></script>
+	<![endif]-->
 
 	</head>
 	<body>
+
+<!-- <?php include 'assets/Admin/login.php'; ?>-->
 
 	<div class="colorlib-loader"></div>
 
@@ -66,7 +70,7 @@
 		<aside id="colorlib-hero">
 			<div class="flexslider">
 				<ul class="slides">
-			   	<li style="background-image: url(assets/images/cover-img-20.jpg);">
+			   	<li style="background-image: url(assets/images/cover-img-18.jpg);">
 			   		<div class="overlay"></div>
 			   		<div class="container-fluid">
 			   			<div class="row">
@@ -82,21 +86,21 @@
 		  	</div>
 		</aside>
 
-		<div class="colorlib-wrap" style="background-color: antiquewhite;">
+		<div class="colorlib-wrap">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-9">
 						<div class="row">
 							<div class="col-md-12">
 								<div class="wrap-division">
-									<div class="col-md-12 col-md-offset-0 heading2 animate-box" style="text-align: center;">
+									<div class="col-md-12 col-md-offset-0 heading2 animate-box">
 										<h2>Please Login</h2>
 									</div>
-									<div class="row" style="color: black;">
-										<div class="col-md-7 animate-box" style="text-align: center;">
+									<div class="row">
+										<div class="col-md-12 animate-box">
 											<div class="room-wrap">
 												<div class="row">
-            									  <form role="form" name="hotels-enq" method="post" action="" style="vertical-align: center;">
+            									  <form role="form" name="hotels-enq" method="post" action="">
 									                <div class="form-group">
 									                  <label>Username</label>
 									                  <input type="text" class="form-control" id="enq-input" placeholder="Username" name="uname" value="" required title="Please Enter Your Username">
@@ -105,8 +109,8 @@
 									                  <label>Password</label>
 									                  <input type="password" class="form-control" id="enq-input" placeholder="Your Password" name="pwd" value="">
 									                </div>										
-                  									<button type="submit" class="btn btn-primary" style="color:black; font-size: x-large;">Login</button>
-                  									<button type="button" onclick="location.href='/register'" class="btn btn-primary" value="register" style="color:black; font-size: x-large;">Register</button>
+                  									<button type="submit" class="btn btn-primary">Login</button>
+                  									<button type="button" onclick="location.href='/register'" class="btn btn-primary" value="register">Register</button>
                   								   </form>
 												</div>
 											</div>
@@ -159,7 +163,17 @@
 	<!-- Main -->
 	<script src="assets/js/main.js"></script>
 
-
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/5b82fb9aafc2c34e96e7eb01/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
 <!--End of Tawk.to Script-->
 
 	</body>

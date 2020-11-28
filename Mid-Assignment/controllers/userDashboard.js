@@ -6,7 +6,7 @@ var router = express.Router();
 
 
 router.get('/', (req, res)=>{
-	if(req.session.name != 'shokal' && req.session.name != null ){
+	if(req.session.name != 'khalid' && req.session.name != null ){
 		 userModel.getUsers(function(result) {
 			  obj = {
 				getUsers: result
@@ -46,7 +46,7 @@ router.get('/', (req, res)=>{
 });
 
 router.post('/', (req, res)=>{
-	/* if(req.session.name != 'shokal' && req.session.name != null ){
+	/* if(req.session.name != 'khalid' && req.session.name != null ){
 		 userModel.getUsers(function(result) {
 			  obj = {
 				getUsers: result
@@ -89,7 +89,7 @@ router.post('/', (req, res)=>{
 
 router.get('/allhotels', (req, res)=>{
 
-if(req.session.name != 'shokal' && req.session.name != null ){
+if(req.session.name != 'khalid' && req.session.name != null ){
 		hotelModel.getHotelView(function(results) {
 
 					var user = {

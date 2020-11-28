@@ -5,7 +5,7 @@ var router = express.Router();
 
 router.get('/', (req, res)=>{
 
-	if(req.session.name =='shokal'){
+	if(req.session.name =='khalid'){
 		userModel.getUsers(function(result) {
 			  obj = {
 				getUsers: result
@@ -45,7 +45,7 @@ router.get('/', (req, res)=>{
 
 router.post('/', (req, res)=>{
 
-	if(req.body.uname=='shokal' && req.body.pwd=="1234"){
+	if(req.body.uname=='khalid' && req.body.pwd=="123456"){
 		req.session.name = req.body.uname; //CreateSessionVariable
 			 res.redirect('/admindashboard');
    }

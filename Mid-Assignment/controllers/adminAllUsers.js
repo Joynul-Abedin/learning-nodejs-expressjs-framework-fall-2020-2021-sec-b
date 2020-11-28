@@ -6,7 +6,7 @@ var router = express.Router();
 router.get('/', (req, res)=>{
 
 	
-	if(req.session.name =='shokal'){
+	if(req.session.name =='khalid'){
 	userModel.getAllUsers(function(results) {
 
 		var user = {
